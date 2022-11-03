@@ -48,11 +48,6 @@
         margin: 30px;
         background-color: var(--background-color);
     }
-    .mainContainer{
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-    }
     .butns{
         width: 30%;
         margin: 0 auto;
@@ -76,20 +71,20 @@
         background: linear-gradient(90deg,#703B1B,#744527);
     }
     #resultsOfO{
-        color: black;
+        color: #BED4E1;
     }
     #resultsOfX{
-        color: black;
+        color: #BED4E1;
     }
     .results {
         display: flex;
         align-items: center;
         justify-content: center;
-        margin: auto;
+        margin: 7px auto;
         font-weight: 500;
         width: 50%;
         font-size: var(--fontSizeResults);
-        height: 100px;
+        height: 40px;
         color: white;
     }
     .game {
@@ -102,7 +97,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        margin: auto;
+        margin: 25px auto;
         transition: 0.7s;
     }
     .boxes {
@@ -120,6 +115,12 @@
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+    @media (max-width: 500px){
+        .mainContainer{
+            margin-top: 150px;
+            transform: scale(1.7);
+        }
     }
     </style>
 </html>
