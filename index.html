@@ -7,111 +7,136 @@
     <title>Document</title>
   </head>
   <body>
-    <div class="game">
-      <div class="box"></div>
-      <div class="box"></div>
-      <div class="box"></div>
-      <div class="box"></div>
-      <div class="box"></div>
-      <div class="box"></div>
-      <div class="box"></div>
-      <div class="box"></div>
-      <div class="box"></div>
-    </div>
-    <div class="results">
-        <div id="resultsOfXDiv">X: <span id="resultsOfX">0</span>&nbsp;&nbsp;&nbsp;</div>
-        <div id="resultsOfODiv">&nbsp;&nbsp;&nbsp;<span id="resultsOfO">0</span> :O</div>
-    </div>
-    <div class="butns">
-        <button onclick="reset()"">Restart(Just round)</button>
-        <button onclick="restart()"">Restart(Whole Game)</button>
+    <div class="mainContainer">
+        <div class="game">
+            <div class="boxes">
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+            </div>
+        </div>
+        <div class="results">
+            <div id="resultsOfXDiv">X: <span id="resultsOfX">0</span>&nbsp;&nbsp;&nbsp;</div>
+            <div id="resultsOfODiv">&nbsp;&nbsp;&nbsp;<span id="resultsOfO">0</span> :O</div>
+        </div>
+        <div class="butns">
+            <button onclick="reset()"">Restart Round</button>
+            <button onclick="restart()"">Restart Game</button>
+        </div>
     </div>
   </body>
   <style>
     :root{
-        --hue: 24;
-        --sat: 100%;
-        --light: 70%;
-        --alpha: 1;
-        --background-color: hsla(var(--hue),var(--sat),var(--light),var(--alpha));
-        --button-color: hsla(calc(var(--hue)/10),var(--sat),var(--light),var(--alpha));
-        --Xcolor: rgb(255,255,255);
+        --background-color: #703B1B;
+        --button-color: #321004;
+        --Xcolor: #242321;
+        --height: 80vh;
+        --boxHeight: 1px;
+        --fontSizeBox: 1px;
+        --fontSizeResults: 1px;
+        --fontSizeButtons: 1px;
     }
     body{
+        margin: 30px;
         background-color: var(--background-color);
     }
-    @media only screen and (max-width: 1200px), (max-height: 768px){
-        body {
-            -webkit-transform:scale(0.8);
-            -moz-transform:scale(0.8);
-            -ms-transform:scale(0.8);
-            transform:scale(0.8);
-        }
-    }
-    @media only screen and (max-width: 800px), (max-height: 768px){
-        body {
-            -webkit-transform:scale(0.6);
-            -moz-transform:scale(0.6);
-            -ms-transform:scale(0.6);
-            transform:scale(0.6);
-        }
-    }
-    @media only screen and (max-height: 660px){
-        body {
-            -webkit-transform:scale(0.5);
-            -moz-transform:scale(0.5);
-            -ms-transform:scale(0.5);
-            transform:scale(0.5);
-        }
-    }
-    @media only screen and (height<660px){
-        body {
-            -webkit-transform:scale(0.4);
-            -moz-transform:scale(0.4);
-            -ms-transform:scale(0.4);
-            transform:scale(0.4);
-        }
-    }
-    .butns{
-        width: 610px;
+    .mainContainer{
         display: flex;
         justify-content: center;
-        margin: auto;
+        flex-direction: column;
+    }
+    .butns{
+        width: 30%;
+        margin: 0 auto;
+        display: flex;
+        align-content: center;
+        flex-direction: column;
     }
     button{
-          background-color: var(--button-color);
-          font-size: 25px;
-          padding: 20px;
-      }
+        cursor: pointer;
+        background-color: var(--button-color);
+        font-size: var(--fontSizeButtons);
+        border: none;
+        border-radius: 5px;
+        margin: 1%;
+        white-space: nowrap;
+        color: #E9D6C8;
+        box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+        transition: 0.2s;
+    }
+    button:hover{
+        background: linear-gradient(90deg,#703B1B,#744527);
+    }
+    #resultsOfO{
+        color: black;
+    }
+    #resultsOfX{
+        color: black;
+    }
     .results {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         margin: auto;
-        width: 610px;
-        font-size: 30px;
+        font-weight: 500;
+        width: 50%;
+        font-size: var(--fontSizeResults);
         height: 100px;
+        color: white;
+    }
+    .game {
+        box-shadow: rgba(215,179,155, 0.4) -5px 5px, rgba(215,179,155, 0.3) -10px 10px, rgba(215,179,155, 0.2) -15px 15px, rgba(215,179,155, 0.1) -20px 20px, rgba(215,179,155, 0.05) -25px 25px;
+        background-color: #E9D6C8;
+        border-radius: 5px;
+        padding: 10px;
+        width: 35%;
+        height: var(--height);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: auto;
+        transition: 0.7s;
+    }
+    .boxes {
+        display: grid;
+        grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+        width: 90%;
+        height: var(--boxHeight);
+        background-color: #BED4E1;
+    }
+    .box {
+        color: var(--Xcolor);
+        border: 1px solid black;
+        box-shadow: rgba(50, 50, 93, 0.2) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.2) 0px 18px 36px -18px inset;
+        font-size: var(--fontSizeBox);
         display: flex;
         align-items: center;
         justify-content: center;
     }
-    .game {
-      width: 610px;
-      height: 610px;
-      display: flex;
-      flex-wrap: wrap;
-      margin: auto;
-    }
-    .box {
-      color: var(--Xcolor);
-      width: 199px;
-      height: 200px;
-      border: 2px solid black;
-      font-size: 50px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
     </style>
 </html>
 <script>
+    resizeBoard();
+    window.addEventListener("resize",resizeBoard);
+    function resizeBoard() {
+        const gameVw = document.getElementsByClassName("game")[0].offsetWidth;
+        document.documentElement.style.setProperty('--height',gameVw + 'px');
+        const boxesW = document.getElementsByClassName("boxes")[0].offsetWidth;
+        document.documentElement.style.setProperty("--boxHeight",boxesW + 'px');
+        const boxW = document.getElementsByClassName("box")[0].offsetWidth;
+        document.documentElement.style.setProperty("--fontSizeBox",boxW*45/100+'px');
+        const resultsW = document.getElementsByClassName("results")[0].offsetWidth;
+        document.documentElement.style.setProperty("--fontSizeResults",resultsW*6/100+'px');
+        const butnsW = document.getElementsByClassName("butns")[0].offsetWidth;
+        document.documentElement.style.setProperty("--fontSizeButtons",butnsW*10/100+'px');
+    }
+
     let box = document.querySelectorAll(".box");
     let x=0,o=0;
     gameBoard();
@@ -180,29 +205,11 @@
     }
     function reset() {
         // To reset just gameboard ( not score );
-        randColor();
         for(let i=0;i<box.length;i++) 
         box[i].textContent='';
     }
-    function Xcolor(light){
-        if(light>=60)
-            document.documentElement.style.setProperty('--Xcolor',"rgb(0,0,0)");
-        else
-            document.documentElement.style.setProperty('--Xcolor',"rgb(255,255,255)");
-    }
-    function randColor() {
-        // randomizer for body background, Hue and lightness;
-        let color = Math.floor(Math.random()*360);
-        let light = Math.floor(Math.random()*(90-30)+30);
-        console.log(light);
-        Xcolor(light);
-        document.documentElement.style.setProperty('--hue',color);
-        document.documentElement.style.setProperty('--light',light+"%");
-    }
     function restart() {
         // to restart whole game even turns,score or colors.
-        /* document.getElementById("resultsOfODiv").style.color="black";
-        document.getElementById("resultsOfXDiv").style.color="black"; */
         document.getElementById("resultsOfXDiv").style.transform="scale(1.0)";
         document.getElementById("resultsOfODiv").style.transform="scale(1.0)";
         document.querySelector("#resultsOfX").textContent=0;
