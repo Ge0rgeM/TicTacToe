@@ -12,15 +12,15 @@
     <div class="mainContainer">
         <div class="game">
             <div class="boxes">
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
+                <div class="box"><span class="XO"></span></div>
+                <div class="box"><span class="XO"></span></div>
+                <div class="box"><span class="XO"></span></div>
+                <div class="box"><span class="XO"></span></div>
+                <div class="box"><span class="XO"></span></div>
+                <div class="box"><span class="XO"></span></div>
+                <div class="box"><span class="XO"></span></div>
+                <div class="box"><span class="XO"></span></div>
+                <div class="box"><span class="XO"></span></div>
             </div>
         </div>
         <div class="results">
@@ -88,6 +88,7 @@
         color: white;
     }
     .game {
+        box-shadow: rgba(110, 40, 5, 0.5) -5px 5px, rgba(131, 137, 8, 0.4) -10px 10px, rgba(166, 63, 12, 0.3) -15px 15px, rgba(29, 116, 7, 0.2) -20px 20px, rgba(9, 1, 61, 0.1) -25px 25px;
         box-shadow: rgba(215,179,155, 0.4) -5px 5px, rgba(215,179,155, 0.3) -10px 10px, rgba(215,179,155, 0.2) -15px 15px, rgba(215,179,155, 0.1) -20px 20px, rgba(215,179,155, 0.05) -25px 25px;
         background-color: #E9D6C8;
         border-radius: 5px;
@@ -98,25 +99,72 @@
         align-items: center;
         justify-content: center;
         margin: 25px auto;
-        transition: 0.7s;
+        /* transition: 0.7s; */
     }
     .boxes {
+        margin: 10px;
         display: grid;
         grid-template: repeat(3, 1fr) / repeat(3, 1fr);
         width: 90%;
         height: var(--boxHeight);
-        background-color: #BED4E1;
     }
     .box {
         color: var(--Xcolor);
         border: 1px solid black;
         box-shadow: rgba(50, 50, 93, 0.2) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.2) 0px 18px 36px -18px inset;
         font-size: var(--fontSizeBox);
+        background-color: #BED4E1;
         display: flex;
         align-items: center;
         justify-content: center;
+        border-radius: 7px;
     }
-    @media (max-width: 500px){
+    /* .test{
+        visibility: hidden;
+        position: relative;
+    } */
+    /*     .box:nth-child(1) > .XO{
+        visibility: hidden;
+        position: relative;
+    }
+    .box:nth-child(1) > .XO::after{
+        visibility: visible;
+        position: absolute;
+        top: 0;
+	    left: 0;
+        content: "1";
+    } */
+    .divTextAnimation {
+        animation: forwards textRes .8s;
+    }
+    .divAnimation {
+        animation: res 1s;
+        /* -webkit-animation-delay: 0s; */
+        /* -webkit-animation-timing-function: ease; */
+    }
+    @keyframes res {
+        40%{
+            transform: scale(1.1);
+            opacity: 0;
+        }
+    }
+    @keyframes textRes{
+        100%{
+            opacity: 0;
+        }
+    }
+    /* 
+    '@keyframes textRes {'
+                            '40% {'
+                                'visibility: visible;'
+                                'position: absolute;'
+                                'top: 0;'
+                                'left: 0;'
+                                'content: "";'
+                            '}'
+                        '}';
+    */
+    @media (max-width: 700px){
         .mainContainer{
             margin-top: 150px;
             transform: scale(1.7);
@@ -141,6 +189,7 @@
     }
 
     let box = document.querySelectorAll(".box");
+    let divText = document.getElementsByClassName('XO');
     let x=0,o=0;
     gameBoard();
     
@@ -148,11 +197,11 @@
         let cnt=0;
         for(let i=0;i<box.length;i++) {
             box[i].addEventListener("click",function () {
-                    if(box[i].innerText!='X'&&box[i].innerText!='O'){
+                if(divText[i].innerText!='X'&&divText[i].innerText!='O'){
                     if(cnt%2===0) 
-                        box[i].innerText="X";
+                        divText[i].innerText="X";
                     else 
-                        box[i].innerText="O";
+                        divText[i].innerText="O";
                     cnt++;
                     if(checker()) { // if checker returns true then someone has won
                         result(cnt); 
@@ -165,14 +214,14 @@
         }
     }
     function checker() { // checks ;D
-        if(box[0].textContent!==''&&box[0].textContent===box[1].textContent&&box[0].textContent===box[2].textContent) return true;
-        if(box[3].textContent!==''&&box[3].textContent===box[4].textContent&&box[3].textContent===box[5].textContent) return true;
-        if(box[6].textContent!==''&&box[6].textContent===box[7].textContent&&box[6].textContent===box[8].textContent) return true;
-        if(box[0].textContent!==''&&box[0].textContent===box[3].textContent&&box[0].textContent===box[6].textContent) return true;
-        if(box[1].textContent!==''&&box[1].textContent===box[4].textContent&&box[1].textContent===box[7].textContent) return true;
-        if(box[2].textContent!==''&&box[2].textContent===box[5].textContent&&box[2].textContent===box[8].textContent) return true;
-        if(box[0].textContent!==''&&box[0].textContent===box[4].textContent&&box[0].textContent===box[8].textContent) return true;
-        if(box[2].textContent!==''&&box[2].textContent===box[4].textContent&&box[2].textContent===box[6].textContent) return true;
+        if(divText[0].textContent!==''&&divText[0].textContent===divText[1].textContent&&divText[0].textContent===divText[2].textContent) return true;
+        if(divText[3].textContent!==''&&divText[3].textContent===divText[4].textContent&&divText[3].textContent===divText[5].textContent) return true;
+        if(divText[6].textContent!==''&&divText[6].textContent===divText[7].textContent&&divText[6].textContent===divText[8].textContent) return true;
+        if(divText[0].textContent!==''&&divText[0].textContent===divText[3].textContent&&divText[0].textContent===divText[6].textContent) return true;
+        if(divText[1].textContent!==''&&divText[1].textContent===divText[4].textContent&&divText[1].textContent===divText[7].textContent) return true;
+        if(divText[2].textContent!==''&&divText[2].textContent===divText[5].textContent&&divText[2].textContent===divText[8].textContent) return true;
+        if(divText[0].textContent!==''&&divText[0].textContent===divText[4].textContent&&divText[0].textContent===divText[8].textContent) return true;
+        if(divText[2].textContent!==''&&divText[2].textContent===divText[4].textContent&&divText[2].textContent===divText[6].textContent) return true;
         return false;
     } 
     function result(cnt) {
@@ -193,23 +242,97 @@
             x++;
             resultsX.innerText=x;
             document.getElementById("resultsOfODiv").style.transform="scale(1.0)";
-            /* document.getElementById("resultsOfODiv").style.color="black";
-            document.getElementById("resultsOfXDiv").style.color="darkgreen"; */
             document.getElementById("resultsOfXDiv").style.transform="scale(1.3)";
             alert("Winner is: X");
             reset();
         }
     }
+    //resAniamtion();
+    function clearBox(container,XO){
+        XO.addEventListener("animationend", function () {
+            const sp1 = document.createElement("span");
+            sp1.classList.add("XO");
+            const sp1_content = document.createTextNode("");
+            sp1.appendChild(sp1_content);
+            const parentDiv = XO.parentNode;
+            parentDiv.replaceChild(sp1,XO);
+        }, false);
+    }
+    function resAniamtion() {
+        let boxes = document.getElementsByClassName("box");
+        let letters = document.getElementsByClassName("XO");
+        let k = 0;
+        for(let i=0;i<boxes.length;i++){
+            boxes[i].classList.remove('divAnimation');
+            void boxes[i].offsetWidth;
+            letters[i].classList.remove('divTextAnimation');
+            void letters[i].offsetWidth;
+        }
+        boxes[0].style.animationDelay= k+"s";
+        boxes[0].classList.add('divAnimation');
+        letters[0].style.animationDelay= k+"s";
+        letters[0].classList.add('divTextAnimation');
+        letters[0].addEventListener("animationend", clearBox(boxes[0],letters[0]), false);
+        
+        k+=0.1;
+        boxes[1].style.animationDelay= k+"s";
+        boxes[1].classList.add('divAnimation');
+        letters[1].style.animationDelay= k+"s";
+        letters[1].classList.add('divTextAnimation');
+        letters[1].addEventListener("animationend", clearBox(boxes[1],letters[1]), false);
+        boxes[3].style.animationDelay= k+"s";
+        boxes[3].classList.add('divAnimation');
+        letters[3].style.animationDelay= k+"s";
+        letters[3].classList.add('divTextAnimation');
+        letters[3].addEventListener("animationend", clearBox(boxes[3],letters[3]), false);
+        
+        k+=0.1;
+        boxes[2].style.animationDelay= k+"s";
+        boxes[2].classList.add('divAnimation');
+        letters[2].style.animationDelay= k+"s";
+        letters[2].classList.add('divTextAnimation');
+        letters[2].addEventListener("animationend", clearBox(boxes[2],letters[2]), false);
+        boxes[4].style.animationDelay= k+"s";
+        boxes[4].classList.add('divAnimation');
+        letters[4].style.animationDelay= k+"s";
+        letters[4].classList.add('divTextAnimation');
+        letters[4].addEventListener("animationend", clearBox(boxes[4],letters[4]), false);
+        boxes[6].style.animationDelay= k+"s";
+        boxes[6].classList.add('divAnimation');
+        letters[6].style.animationDelay= k+"s";
+        letters[6].classList.add('divTextAnimation');
+        letters[6].addEventListener("animationend", clearBox(boxes[6],letters[6]), false);
+        
+        k+=0.1;
+        boxes[5].style.animationDelay= k+"s";
+        boxes[5].classList.add('divAnimation');
+        letters[5].style.animationDelay= k+"s";
+        letters[5].classList.add('divTextAnimation');
+        letters[5].addEventListener("animationend", clearBox(boxes[5],letters[5]), false);
+        boxes[7].style.animationDelay= k+"s";
+        boxes[7].classList.add('divAnimation');
+        letters[7].style.animationDelay= k+"s";
+        letters[7].classList.add('divTextAnimation');
+        letters[7].addEventListener("animationend", clearBox(boxes[7],letters[7]), false);
+        
+        k+=0.1;
+        boxes[8].style.animationDelay= k+"s";
+        boxes[8].classList.add('divAnimation');
+        letters[8].style.animationDelay= k+"s";
+        letters[8].classList.add('divTextAnimation');
+        letters[8].addEventListener("animationend", clearBox(boxes[8],letters[8]), false);
+    }
     function pssblSquare() { 
         // if there is not any possible square to write x/o then it's a draw;
         for(let i=0;i<box.length;i++) 
-            if(box[i].textContent==="") return true;
+        if(divText[i].textContent==="") return true;
         return false;
     }
     function reset() {
         // To reset just gameboard ( not score );
-        for(let i=0;i<box.length;i++) 
-        box[i].textContent='';
+        resAniamtion();
+        /* for(let i=0;i<box.length;i++)
+            divText[i].textContent=''; */
     }
     function restart() {
         // to restart whole game even turns,score or colors.
@@ -220,6 +343,4 @@
         x=0;o=0;
         reset();
     }
-
-    
 </script>
