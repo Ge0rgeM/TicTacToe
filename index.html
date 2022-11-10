@@ -28,7 +28,7 @@
             <div id="resultsOfODiv">&nbsp;&nbsp;&nbsp;<span id="resultsOfO">0</span> :O</div>
         </div>
         <div class="butns">
-            <button onclick="reset()"">Restart Round</button>
+            <button onclick="resAniamtion()"">Restart Round</button>
             <button onclick="restart()"">Restart Game</button>
         </div>
     </div>
@@ -99,7 +99,6 @@
         align-items: center;
         justify-content: center;
         margin: 25px auto;
-        /* transition: 0.7s; */
     }
     .boxes {
         margin: 10px;
@@ -119,32 +118,41 @@
         justify-content: center;
         border-radius: 7px;
     }
-    /* .test{
-        visibility: hidden;
-        position: relative;
-    } */
-    /*     .box:nth-child(1) > .XO{
-        visibility: hidden;
-        position: relative;
-    }
-    .box:nth-child(1) > .XO::after{
-        visibility: visible;
-        position: absolute;
-        top: 0;
-	    left: 0;
-        content: "1";
-    } */
     .divTextAnimation {
-        animation: forwards textRes .8s;
+        animation: forwards textRes .75s;
+        -webkit-animation: forwards textRes .75s;
+        -moz-animation: forwards textRes .75s;
     }
     .divAnimation {
         animation: res 1s;
-        /* -webkit-animation-delay: 0s; */
-        /* -webkit-animation-timing-function: ease; */
+        -webkit-animation: res 1s;
+        -moz-animation: res 1s;
     }
-    @keyframes res {
+    @-moz-keyframes res {
         40%{
             transform: scale(1.1);
+            opacity: 0;
+        }
+    }
+    @-webkit-keyframes res{
+        40%{
+            transform: scale(1.1);
+            opacity: 0;
+        }
+    }
+    @keyframes res{
+        40%{
+            transform: scale(1.1);
+            opacity: 0;
+        }
+    }
+    @-webkit-keyframes textRes{
+        100%{
+            opacity: 0;
+        }
+    }
+    @-moz-keyframes textRes{
+        100%{
             opacity: 0;
         }
     }
@@ -153,17 +161,6 @@
             opacity: 0;
         }
     }
-    /* 
-    '@keyframes textRes {'
-                            '40% {'
-                                'visibility: visible;'
-                                'position: absolute;'
-                                'top: 0;'
-                                'left: 0;'
-                                'content: "";'
-                            '}'
-                        '}';
-    */
     @media (max-width: 700px){
         .mainContainer{
             margin-top: 150px;
@@ -209,7 +206,7 @@
                         else cnt=0;
                     }
                 }
-                if(pssblSquare()===false) {alert("Its a draw");reset();} 
+                if(pssblSquare()===false) {alert("Its a draw");resAniamtion();} 
             });
         }
     }
@@ -231,11 +228,9 @@
             o++;
             resultsO.innerText=o;
             document.getElementById("resultsOfXDiv").style.transform="scale(1.0)";
-            /* document.getElementById("resultsOfXDiv").style.color="black";
-            document.getElementById("resultsOfODiv").style.color="darkgreen"; */
             document.getElementById("resultsOfODiv").style.transform="scale(1.3)";
             alert("Winner Is: O");
-            reset();
+            resAniamtion();
         }else {
             // "X" winner
             let resultsX = document.querySelector("#resultsOfX");
@@ -244,12 +239,12 @@
             document.getElementById("resultsOfODiv").style.transform="scale(1.0)";
             document.getElementById("resultsOfXDiv").style.transform="scale(1.3)";
             alert("Winner is: X");
-            reset();
+            resAniamtion();
         }
     }
-    //resAniamtion();
-    function clearBox(container,XO){
-        XO.addEventListener("animationend", function () {
+
+    function clearBox(XO){ // clears each div when it's animation is ended
+        XO.addEventListener("animationend", function () { // makes clear span and swapes it with old one
             const sp1 = document.createElement("span");
             sp1.classList.add("XO");
             const sp1_content = document.createTextNode("");
@@ -258,6 +253,7 @@
             parentDiv.replaceChild(sp1,XO);
         }, false);
     }
+
     function resAniamtion() {
         let boxes = document.getElementsByClassName("box");
         let letters = document.getElementsByClassName("XO");
@@ -265,74 +261,66 @@
         for(let i=0;i<boxes.length;i++){
             boxes[i].classList.remove('divAnimation');
             void boxes[i].offsetWidth;
-            letters[i].classList.remove('divTextAnimation');
-            void letters[i].offsetWidth;
         }
         boxes[0].style.animationDelay= k+"s";
         boxes[0].classList.add('divAnimation');
         letters[0].style.animationDelay= k+"s";
         letters[0].classList.add('divTextAnimation');
-        letters[0].addEventListener("animationend", clearBox(boxes[0],letters[0]), false);
+        letters[0].addEventListener("animationend", clearBox(letters[0]), false);
         
         k+=0.1;
         boxes[1].style.animationDelay= k+"s";
         boxes[1].classList.add('divAnimation');
         letters[1].style.animationDelay= k+"s";
         letters[1].classList.add('divTextAnimation');
-        letters[1].addEventListener("animationend", clearBox(boxes[1],letters[1]), false);
+        letters[1].addEventListener("animationend", clearBox(letters[1]), false);
         boxes[3].style.animationDelay= k+"s";
         boxes[3].classList.add('divAnimation');
         letters[3].style.animationDelay= k+"s";
         letters[3].classList.add('divTextAnimation');
-        letters[3].addEventListener("animationend", clearBox(boxes[3],letters[3]), false);
+        letters[3].addEventListener("animationend", clearBox(letters[3]), false);
         
         k+=0.1;
         boxes[2].style.animationDelay= k+"s";
         boxes[2].classList.add('divAnimation');
         letters[2].style.animationDelay= k+"s";
         letters[2].classList.add('divTextAnimation');
-        letters[2].addEventListener("animationend", clearBox(boxes[2],letters[2]), false);
+        letters[2].addEventListener("animationend", clearBox(letters[2]), false);
         boxes[4].style.animationDelay= k+"s";
         boxes[4].classList.add('divAnimation');
         letters[4].style.animationDelay= k+"s";
         letters[4].classList.add('divTextAnimation');
-        letters[4].addEventListener("animationend", clearBox(boxes[4],letters[4]), false);
+        letters[4].addEventListener("animationend", clearBox(letters[4]), false);
         boxes[6].style.animationDelay= k+"s";
         boxes[6].classList.add('divAnimation');
         letters[6].style.animationDelay= k+"s";
         letters[6].classList.add('divTextAnimation');
-        letters[6].addEventListener("animationend", clearBox(boxes[6],letters[6]), false);
+        letters[6].addEventListener("animationend", clearBox(letters[6]), false);
         
         k+=0.1;
         boxes[5].style.animationDelay= k+"s";
         boxes[5].classList.add('divAnimation');
         letters[5].style.animationDelay= k+"s";
         letters[5].classList.add('divTextAnimation');
-        letters[5].addEventListener("animationend", clearBox(boxes[5],letters[5]), false);
+        letters[5].addEventListener("animationend", clearBox(letters[5]), false);
         boxes[7].style.animationDelay= k+"s";
         boxes[7].classList.add('divAnimation');
         letters[7].style.animationDelay= k+"s";
         letters[7].classList.add('divTextAnimation');
-        letters[7].addEventListener("animationend", clearBox(boxes[7],letters[7]), false);
+        letters[7].addEventListener("animationend", clearBox(letters[7]), false);
         
         k+=0.1;
         boxes[8].style.animationDelay= k+"s";
         boxes[8].classList.add('divAnimation');
         letters[8].style.animationDelay= k+"s";
         letters[8].classList.add('divTextAnimation');
-        letters[8].addEventListener("animationend", clearBox(boxes[8],letters[8]), false);
+        letters[8].addEventListener("animationend", clearBox(letters[8]), false);
     }
     function pssblSquare() { 
         // if there is not any possible square to write x/o then it's a draw;
         for(let i=0;i<box.length;i++) 
         if(divText[i].textContent==="") return true;
         return false;
-    }
-    function reset() {
-        // To reset just gameboard ( not score );
-        resAniamtion();
-        /* for(let i=0;i<box.length;i++)
-            divText[i].textContent=''; */
     }
     function restart() {
         // to restart whole game even turns,score or colors.
@@ -341,6 +329,6 @@
         document.querySelector("#resultsOfX").textContent=0;
         document.querySelector("#resultsOfO").textContent=0;
         x=0;o=0;
-        reset();
+        resAniamtion();
     }
 </script>
